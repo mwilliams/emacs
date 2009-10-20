@@ -27,6 +27,11 @@
 (setq default-tab-width 2)
 (setq tab-width 2)
 
+;; Textmate.el from Defunkt
+(add-to-list 'load-path "/Users/mwilliams/.emacs.d/vendor/textmate.el")
+(require 'textmate)
+(textmate-mode)
+
 ;; Snippets via yasnippet
 (add-to-list 'load-path "/Users/mwilliams/.emacs.d/vendor/yasnippet")
 (require 'yasnippet)
