@@ -27,6 +27,12 @@
 (setq default-tab-width 2)
 (setq tab-width 2)
 
+;; Rinari
+(add-to-list 'load-path "~/.emacs.d/vendor/rinari")
+(add-to-list 'load-path "~/.emacs.d/vendor/jump.el")
+(require 'rinari)
+
+
 ;; Textmate.el from Defunkt
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
