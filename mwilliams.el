@@ -28,23 +28,23 @@
 (setq tab-width 2)
 
 ;; Textmate.el from Defunkt
-(add-to-list 'load-path "/Users/mwilliams/.emacs.d/vendor/textmate.el")
+(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
 (textmate-mode)
 
 ;; Snippets via yasnippet
-(add-to-list 'load-path "/Users/mwilliams/.emacs.d/vendor/yasnippet")
+(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet")
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "/Users/mwilliams/.emacs.d/vendor/yasnippet/snippets")
+(yas/load-directory "~/.emacs.d/vendor/yasnippet/snippets")
 
 ;; Color theme
-(add-to-list 'load-path "/Users/mwilliams/.emacs.d/vendor/color-theme")
+(add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
 (require 'color-theme)
 (color-theme-initialize)
 
 ;; Twilight Emacs
-(load-file  "/Users/mwilliams/.emacs.d/vendor/twilight-emacs/color-theme-twilight.el")
+(load-file  "~/.emacs.d/vendor/twilight-emacs/color-theme-twilight.el")
 (color-theme-twilight)
 
 ;; Change font size
