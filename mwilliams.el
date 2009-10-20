@@ -2,8 +2,14 @@
 ;; ------------
 ;; My custom Emacs settings
 
+; Navigate buffers
+(windmove-default-keybindings) 
+
 ; Start with the scratch buffer
 (setq inhibit-startup-message t)
+
+; Get rid of scroll bars
+(scroll-bar-mode -1)
 
 ;; Load my path
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
