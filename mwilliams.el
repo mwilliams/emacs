@@ -154,22 +154,8 @@
 (global-set-key (kbd "C-x m") 'eshell)
 
 ;; Smart tab, try to complete if possible or tab as normal
-(global-set-key [(tab)] 'smart-tab)
-(defun smart-tab ()
-  "This smart tab is minibuffer compliant: it acts as usual in
-    the minibuffer. Else, if mark is active, indents region. Else if
-    point is at the end of a symbol, expands it. Else indents the
-    current line."
-  (interactive)
-  (if (minibufferp)
-      (unless (minibuffer-complete)
-        (dabbrev-expand nil))
-    (if mark-active
-        (indent-region (region-beginning)
-                       (region-end))
-      (if (looking-at "\\_>")
-          (dabbrev-expand nil)
-        (indent-for-tab-command)))))
+(load-file "~/.emacs.d/vendor/smart-tab/smart-tab.el")
+(require 'smart-tab) 
 
 ;; Other
 (global-set-key [(meta up)] 'beginning-of-buffer)
