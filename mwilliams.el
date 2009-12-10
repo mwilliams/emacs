@@ -2,6 +2,9 @@
 ;; ------------
 ;; My custom Emacs settings
 
+; Default to hippie-expand for the smart expand stuff
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 ; Navigate buffers
 (windmove-default-keybindings) 
 
@@ -21,8 +24,6 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-
-
 ;; Save backups in one place
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
@@ -30,6 +31,14 @@
   (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
 
 (make-directory autosave-dir t)
+
+;; Uniquify buffer names when files are open with the same file name
+;; from different projects
+
+(require 'uniquify) 
+(setq 
+  uniquify-buffer-name-style 'post-forward
+  uniquify-separator ":")
 
 ;; Set tabbing
 (setq default-tab-width 2)
@@ -61,8 +70,8 @@
 (color-theme-initialize)
 
 ;; Twilight Emacs
-(load-file  "~/.emacs.d/vendor/twilight-emacs/color-theme-twilight.el")
-(color-theme-twilight)
+;; (load-file  "~/.emacs.d/vendor/twilight-emacs/color-theme-twilight.el")
+;; (color-theme-twilight)
 
 ;; Change font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -171,7 +180,65 @@
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
+;; Close all the buffers
+(defun close-all-buffers ()
+  (interactive)
+  (loop for buffer being the buffers
+    do (kill-buffer buffer)))
+
 ;; Other
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (prefer-coding-system 'utf-8)
+
+(defun color-theme-vivid-chalk () 
+  "Based on Vivid Chalk, a vim port of Vibrant Ink." 
+  (interactive) 
+  (color-theme-install 
+   '(color-theme-vivid-chalk 
+     ((background-color . "black") 
+      (background-mode . dark) 
+      (border-color . "black") 
+      (cursor-color . "white") 
+      (foreground-color . "white") 
+      (list-matching-lines-face . bold) 
+      (view-highlight-face . highlight)) 
+     (default ((t (nil)))) 
+     (bold ((t (:bold t)))) 
+     (bold-italic ((t (:italic t :bold t)))) 
+     (fringe ((t (:background "black")))) 
+     (font-lock-builtin-face ((t (:foreground "#aaccff")))) 
+     (font-lock-comment-face ((t (:italic t :foreground "#9933cc")))) 
+     (font-lock-comment-delimiter-face ((t (:foreground "#9933cc")))) 
+     (font-lock-constant-face ((t (:foreground "#339999")))) 
+     (font-lock-function-name-face ((t (:foreground "#ffcc00")))) 
+     (font-lock-keyword-face ((t (:foreground "#ff6600")))) 
+     (font-lock-preprocessor-face ((t (:foreground "#aaffff")))) 
+     (font-lock-reference-face ((t (:foreground "LightSteelBlue")))) 
+     (font-lock-string-face ((t (:foreground "#66FF00")))) 
+     (font-lock-doc-face ((t (:foreground "LightSalmon")))) 
+     (font-lock-type-face ((t (:italic t :foreground "#aaaaaa")))) 
+     (font-lock-variable-name-face ((t (:foreground "#aaccff")))) 
+     (font-lock-warning-face ((t (:bold t :foreground "Pink")))) 
+     (paren-face-match-light ((t (:background "#222222")))) 
+     (highlight ((t (:background "darkolivegreen")))) 
+     (italic ((t (:italic t)))) 
+     (modeline ((t (:background "#a5baf1" :foreground "black")))) 
+     (modeline-buffer-id ((t (:background "#a5baf1" :foreground 
+"black")))) 
+     (modeline-mousable ((t (:background "#a5baf1" :foreground 
+"black")))) 
+     (modeline-mousable-minor-mode ((t (:background 
+"#a5baf1" :foreground "black")))) 
+     (region ((t (:background "#555577")))) 
+     (primary-selection ((t (:background "#555577")))) 
+     (isearch ((t (:background "#555555")))) 
+     (zmacs-region ((t (:background "#555577")))) 
+     (secondary-selection ((t (:background "darkslateblue")))) 
+     (flymake-errline ((t (:background "LightSalmon" :foreground 
+"black")))) 
+     (flymake-warnline ((t (:background "LightSteelBlue" :foreground 
+"black")))) 
+     (underline ((t (:underline t)))) 
+     (minibuffer-prompt ((t (:bold t :foreground "#ff6600"))))))) 
+(color-theme-vivid-chalk)
