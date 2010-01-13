@@ -44,6 +44,9 @@
 (setq default-tab-width 2)
 (setq tab-width 2)
 
+;; nXhtml
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+
 ;; Color theme
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
 (require 'color-theme)
