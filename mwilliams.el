@@ -242,3 +242,6 @@
      (underline ((t (:underline t)))) 
      (minibuffer-prompt ((t (:bold t :foreground "#ff6600"))))))) 
 (color-theme-vivid-chalk)
+
+(setq swank-clojure-extra-classpaths
+    (list "/Users/mwilliams/Projects/programming-clojure"))
