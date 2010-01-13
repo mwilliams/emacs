@@ -44,34 +44,15 @@
 (setq default-tab-width 2)
 (setq tab-width 2)
 
-;; Magit
-(add-to-list 'load-path "~/.emacs.d/vendor/magit")
-(require 'magit)
-
-;; Rinari
-(add-to-list 'load-path "~/.emacs.d/vendor/rinari")
-(add-to-list 'load-path "~/.emacs.d/vendor/jump.el")
-(require 'rinari)
-
 ;; Textmate.el from Defunkt
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
 (textmate-mode)
 
-;; Snippets via yasnippet
-(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet")
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/vendor/yasnippet/snippets")
-
 ;; Color theme
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
 (require 'color-theme)
 (color-theme-initialize)
-
-;; Twilight Emacs
-;; (load-file  "~/.emacs.d/vendor/twilight-emacs/color-theme-twilight.el")
-;; (color-theme-twilight)
 
 ;; Change font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -163,10 +144,6 @@
 
 ; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
-
-;; Smart tab, try to complete if possible or tab as normal
-(load-file "~/.emacs.d/vendor/smart-tab/smart-tab.el")
-(require 'smart-tab) 
 
 ;; Lorem ipsum
 (defun lorem ()
