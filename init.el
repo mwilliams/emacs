@@ -52,3 +52,5 @@
  '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil))))
 
 (textmate-mode)
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
