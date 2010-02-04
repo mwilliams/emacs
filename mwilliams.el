@@ -18,9 +18,13 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
+;; (setq explicit-shell-file-name "shell")
+
 ;; Load my shell (defined in ~/bin/eshell so zsh properly loads
 ;; and all the theming works correctly
 (setenv "ESHELL" (expand-file-name "~/bin/eshell"))
+(setenv "explicit-shell-file-name" "shell")
+
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -47,6 +51,8 @@
 ;; nXhtml
 (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 
+(load "/usr/local/share/emacs/site-lisp/rdebug.el")
+
 ;; Color theme
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
 (require 'color-theme)
@@ -57,7 +63,7 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; Set the font
-(set-face-font 'default "-apple-Anonymous_Pro-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1")
+;; (set-face-font 'default "-apple-Anonymous_Pro-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1")
 
 ;; From starter-kit-misc.el from the emacs-starter-kit
 
@@ -155,8 +161,13 @@
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-;; Close all the buffers
+(defun hashrocket ()
+  "Inserts a hashrocket (=>) surrounded by spaces."
+  (interactive)
+  (insert " => ")) 
+
 (defun close-all-buffers ()
+  "Close all open buffers."
   (interactive)
   (loop for buffer being the buffers
     do (kill-buffer buffer)))
@@ -221,21 +232,57 @@
 (setq swank-clojure-extra-classpaths
     (list "/Users/mwilliams/Projects/programming-clojure"))
 
+(defun maximize-frame () 
+  (interactive)
+  (set-frame-position (selected-frame) 0 0)
+  (set-frame-size (selected-frame) 1000 1000))
+
+(global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
+
+(defun swap-with (dir)
+  (interactive)
+  (let ((other-window (windmove-find-other-window dir)))
+    (when other-window
+      (let* ((this-window  (selected-window))
+             (this-buffer  (window-buffer this-window))
+             (other-buffer (window-buffer other-window))
+             (this-start   (window-start this-window))
+             (other-start  (window-start other-window)))
+        (set-window-buffer this-window  other-buffer)
+        (set-window-buffer other-window this-buffer)
+        (set-window-start  this-window  other-start)
+        (set-window-start  other-window this-start)))))
+ 
+(global-set-key (kbd "C-M-J") (lambda () (interactive) (swap-with 'down)))
+(global-set-key (kbd "C-M-K") (lambda () (interactive) (swap-with 'up)))
+(global-set-key (kbd "C-M-H") (lambda () (interactive) (swap-with 'left)))
+(global-set-key (kbd "C-M-L") (lambda () (interactive) (swap-with 'right)))
+ 
+(global-set-key (kbd "M-J") (lambda () (interactive) (enlarge-window 1)))
+(global-set-key (kbd "M-K") (lambda () (interactive) (enlarge-window -1)))
+(global-set-key (kbd "M-H") (lambda () (interactive) (enlarge-window -1 t)))
+(global-set-key (kbd "M-L") (lambda () (interactive) (enlarge-window 1 t)))
+ 
+(global-set-key (kbd "M-j") 'windmove-down)
+(global-set-key (kbd "M-k") 'windmove-up)
+(global-set-key (kbd "M-h") 'windmove-left)
+(global-set-key (kbd "M-l") 'windmove-right)
+
 ;; Tabbing stuff
 
-(global-set-key [(tab)] 'smart-tab)
-(defun smart-tab ()
-  "This smart tab is minibuffer compliant: it acts as usual in
-    the minibuffer. Else, if mark is active, indents region. Else if
-    point is at the end of a symbol, expands it. Else indents the
-    current line."
-  (interactive)
-  (if (minibufferp)
-      (unless (minibuffer-complete)
-        (dabbrev-expand nil))
-    (if mark-active
-        (indent-region (region-beginning)
-                       (region-end))
-      (if (looking-at "\\_>")
-          (dabbrev-expand nil)
-        (indent-for-tab-command)))))
+;; (global-set-key [(tab)] 'smart-tab)
+;; (defun smart-tab ()
+;;   "This smart tab is minibuffer compliant: it acts as usual in
+;;     the minibuffer. Else, if mark is active, indents region. Else if
+;;     point is at the end of a symbol, expands it. Else indents the
+;;     current line."
+;;   (interactive)
+;;   (if (minibufferp)
+;;       (unless (minibuffer-complete)
+;;         (dabbrev-expand nil))
+;;     (if mark-active
+;;         (indent-region (region-beginning)
+;;                        (region-end))
+;;       (if (looking-at "\\_>")
+;;           (dabbrev-expand nil)
+;;         (indent-for-tab-command)))))
