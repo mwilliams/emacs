@@ -53,6 +53,11 @@
 
 (load "/usr/local/share/emacs/site-lisp/rdebug.el")
 
+;; Cucumber.el
+(add-to-list 'load-path "~/.emacs.d/vendor/cucumber.el/")
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+
 ;; Color theme
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
 (require 'color-theme)
