@@ -63,6 +63,12 @@
 (require 'color-theme)
 (color-theme-initialize)
 
+;; Emacs nav
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-nav")
+(require 'nav)
+
+
+
 ;; Change font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
