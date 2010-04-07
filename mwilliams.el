@@ -2,6 +2,9 @@
 ;; ------------
 ;; My custom Emacs settings
 
+;; Disable VC
+(setq vc-handled-backends nil)
+
 ; Default to hippie-expand for the smart expand stuff
 (global-set-key (kbd "M-/") 'hippie-expand)
 
@@ -31,10 +34,17 @@
 ;; Save backups in one place
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
-(defvar autosave-dir
-  (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
+;; (make-directory autosave-dir t)
 
-(make-directory autosave-dir t)
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
 
 ;; Uniquify buffer names when files are open with the same file name
 ;; from different projects
@@ -67,6 +77,8 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-nav")
 (require 'nav)
 
+;; Rspec Snippets
+;;(load-library (concat "~/.emacs.d/vendor/yasnippets-rspec/setup.el"))
 
 
 ;; Change font size
@@ -297,3 +309,4 @@
 ;;       (if (looking-at "\\_>")
 ;;           (dabbrev-expand nil)
 ;;         (indent-for-tab-command)))))
+(server-start)
