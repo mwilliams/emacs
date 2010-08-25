@@ -8,7 +8,7 @@
 ;; same way that the noonday sun does the stars. It is not just bigger
 ;; and brighter; it simply makes everything else vanish."
 ;; -Neal Stephenson, "In the Beginning was the Command Line"
-
+;; Test comment
 ;; Load path etc:
 
 (setq dotfiles-dir (file-name-directory
